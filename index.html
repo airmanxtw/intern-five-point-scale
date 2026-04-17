@@ -5,12 +5,24 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>intern-five-point-scale</title>
-    <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/my-element.js"></script>
+    <!-- <link rel="stylesheet" href="./src/index.css" /> -->
+    <script type="module" src="/src/intern-five-point-scale.js"></script>
   </head>
   <body>
-    <my-element>
-      <h1>Get started</h1>
-    </my-element>
+    <intern-five-point-scale id="intern">
+     
+    </intern-five-point-scale>
+    <script>
+      const randFives = () => Array.from({length: 10}, () => Math.floor(Math.random() * 5) + 1);
+      let data = [
+        {qno:'Q1',qtext:'實習員對機構派遣與交辦的工作，是否能勝任？',fives:randFives()},
+        {qno:'Q2',qtext:'實習員平日工作時，是否能積極投入？',fives:randFives()},
+        {qno:'Q3',qtext:'在機構內與同仁相處，是否融洽？',fives:randFives()},
+        {qno:'Q4',qtext:'實習員平日的學習能力如何？',fives:randFives()},
+        {qno:'Q5',qtext:'實習員的綜合表現如何？',fives:randFives()},
+        {qno:'Q6',qtext:'對實習課程內容之滿意度為何?',fives:randFives()},
+      ];
+      document.getElementById('intern').data = data;
+    </script>
   </body>
 </html>
