@@ -1,7 +1,7 @@
-import { LitElement, css, html } from 'lit'
-import litLogo from './assets/lit.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { LitElement, css, html } from "lit";
+import litLogo from "./assets/lit.svg";
+import viteLogo from "./assets/vite.svg";
+import heroImg from "./assets/hero.png";
 
 /**
  * An example element.
@@ -22,20 +22,20 @@ export class InternFivePointScale extends LitElement {
       border: 1px solid #000;
       text-align: center;
     }
-  `
+  `;
 
   static get properties() {
     return {
       /**
        * The number of times the button has been clicked.
        */
-      data: { type:Array },
-    }
+      data: { type: Array },
+    };
   }
 
   constructor() {
-    super()
-    this.count = 0
+    super();
+    this.count = 0;
   }
 
   render() {
@@ -53,49 +53,38 @@ export class InternFivePointScale extends LitElement {
             <th rowspan="2">平均分數</th>
           </tr>
           <tr>
-            <th>份數</th>
-            <th>百分比</th>
-            <th>份數</th>
-            <th>百分比</th>
-            <th>份數</th>
-            <th>百分比</th>
-            <th>份數</th>
-            <th>百分比</th>
-            <th>份數</th>
-            <th>百分比</th>
+            ${[5, 4, 3, 2, 1].map(
+              (_) => html`
+                <th>份數</th>
+                <th>百分比</th>
+              `,
+            )}
           </tr>
-          
         </thead>
         <tbody>
-          ${this.data.map((item, index) => html`
-            <tr>
-              <td>${item.qno}</td>
-              <td>${item.qtext}</td>
-              <td>${item.fives.filter(f=>f==5).length}</td>
-              <td>${(item.fives.filter(f=>f==5).length/item.fives.length*100).toFixed(2)}%</td>
-              <td>${item.fives.filter(f=>f==4).length}</td>
-              <td>${(item.fives.filter(f=>f==4).length/item.fives.length*100).toFixed(2)}%</td>
-              <td>${item.fives.filter(f=>f==3).length}</td>
-              <td>${(item.fives.filter(f=>f==3).length/item.fives.length*100).toFixed(2)}%</td>
-              <td>${item.fives.filter(f=>f==2).length}</td>
-              <td>${(item.fives.filter(f=>f==2).length/item.fives.length*100).toFixed(2)}%</td>
-              <td>${item.fives.filter(f=>f==1).length}</td>
-              <td>${(item.fives.filter(f=>f==1).length/item.fives.length*100).toFixed(2)}%</td>
-              <td>${(item.fives.reduce((a,b)=>a+b,0)/item.fives.length).toFixed(2)}</td>
-            </tr>
-          `)}
+          ${this.data.map(
+            (item, index) => html`
+              <tr>
+                <td>${item.qno}</td>
+                <td>${item.qtext}</td>
+                ${[5, 4, 3, 2, 1].map(
+                  (n) => html`
+                    <td>${item.fives.filter((f) => f == n).length}</td>
+                    <td>${((item.fives.filter((f) => f == n).length / item.fives.length) * 100).toFixed(2)}%</td>
+                  `,
+                )}
+                <td>${(item.fives.reduce((a, b) => a + b, 0) / item.fives.length).toFixed(2)}</td>
+              </tr>
+            `,
+          )}
         </tbody>
       </table>
-
-    `
+    `;
   }
 
   _onClick() {
-    this.count++
+    this.count++;
   }
-
-  
-  
 }
 
-window.customElements.define('intern-five-point-scale', InternFivePointScale)
+window.customElements.define("intern-five-point-scale", InternFivePointScale);
