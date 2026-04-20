@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
-import litLogo from "./assets/lit.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
+// import litLogo from "./assets/lit.svg";
+// import viteLogo from "./assets/vite.svg";
+// import heroImg from "./assets/hero.png";
 
 /**
  * An example element.
@@ -30,12 +30,15 @@ export class InternFivePointScale extends LitElement {
        * The number of times the button has been clicked.
        */
       data: { type: Array },
+      data2: { type: Array },
     };
   }
 
   constructor() {
     super();
-    this.count = 0;
+    this.data=[];
+    this.data2=[];
+
   }
 
   render() {
@@ -79,12 +82,46 @@ export class InternFivePointScale extends LitElement {
           )}
         </tbody>
       </table>
+
+      <table style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th rowspan="2">題目</th>
+            <th rowspan="2">問卷題目</th>
+            <th colspan="2">視訊訪談</th>
+            <th colspan="2">實地訪談</th>
+            <th colspan="2">電話訪談</th>
+            <th colspan="2">電子郵件</th>
+          </tr>
+          <tr>
+            ${['視訊訪談', '實地訪談', '電話訪談', '電子郵件'].map(
+              (_) => html`
+                <th>份數</th>
+                <th>百分比</th>
+              `)}
+          </tr>
+        </thead>
+        <tbody>
+          ${this.data2.map(
+            (item, index) => html`
+              <tr>
+                <td>${item.qno}</td>
+                <td>${item.qtext}</td>
+                ${['視訊訪談', '實地訪談', '電話訪談', '電子郵件'].map(
+                  (m) => html`
+                    <td>${item.answers.filter(a => a == m).length}</td>
+                    <td>
+                      ${((item.answers.filter(a => a == m).length / item.answers.length) * 100).toFixed(2)}%
+                    </td>
+                  `)}
+              </tr>
+            `,
+          )}
+        </tbody>
+      </table>
     `;
   }
 
-  _onClick() {
-    this.count++;
-  }
 }
 
 window.customElements.define("intern-five-point-scale", InternFivePointScale);
