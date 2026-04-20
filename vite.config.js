@@ -4,7 +4,8 @@ import { readFileSync } from 'fs';
 const { version } = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 export default defineConfig({
-  build: {
+  build: {  
+    minify: 'terser',   
     lib: {
       entry: 'src/intern-five-point-scale.js',
       name: 'InternFivePointScale',
